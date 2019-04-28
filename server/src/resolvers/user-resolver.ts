@@ -1,4 +1,4 @@
-import {Resolver, Query, Arg, Int} from "type-graphql";
+import {Resolver, Query, Arg, Ctx, Int} from "type-graphql";
 import { Repository } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import {User} from "../entity/User";
@@ -11,7 +11,8 @@ export class UserResolver {
     ) {}
 
     @Query(returns => [User])
-    users(): Promise<User[]> {
+    users(@Ctx() context): Promise<User[]> {
+        console.log(context.user);
         return this.userRepository.find();
     }
 
